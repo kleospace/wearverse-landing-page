@@ -1,8 +1,6 @@
 import { useReveal } from "@/hooks/use-reveal";
 import f1 from "@/assets/fashion-2.jpg";
 import f2 from "@/assets/fashion-1.jpg";
-import f3 from "@/assets/fashion-5.jpg";
-import f4 from "@/assets/fashion-3.jpg";
 
 type Feat = {
   num: string;
@@ -32,25 +30,6 @@ const features: Feat[] = [
     body: "Wake up to a curated triptych assembled from what's already hanging in your closet — calibrated for weather, your calendar and the way you actually like to dress.",
     bullets: ["Weather-aware", "Calendar sync", "Personal taste model", "Always 3, never more"],
     img: f2,
-    reverse: true,
-    bg: "ink",
-  },
-  {
-    num: "03",
-    name: "The Gatekeeper",
-    title: "Stops you buying it twice.",
-    body: "Browsing online? We quietly intercept and tell you — you already own this in olive. Here are three pieces from your closet that fill the same gap.",
-    bullets: ["Browser extension", "Duplicate detection", "Wardrobe alternatives", "Spend dashboard"],
-    img: f3,
-    bg: "cream",
-  },
-  {
-    num: "04",
-    name: "The Trendspotter",
-    title: "Trends, mapped to your closet.",
-    body: "Each Sunday we scan runways, street style, and the corners of the internet that matter — then tell you which trends you can already wear from what you own.",
-    bullets: ["Weekly drop", "Runway + street", "Closet-matched", "Skip the haul"],
-    img: f4,
     reverse: true,
     bg: "ink",
   },

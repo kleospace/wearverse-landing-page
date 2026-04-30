@@ -11,16 +11,6 @@ const steps = [
     name: "CURATE",
     body: "Wake to three daily outfits, drawn from what you already own and tuned to weather and calendar.",
   },
-  {
-    n: "03",
-    name: "PROTECT",
-    body: "Browse without regret. The gatekeeper blocks duplicates and surfaces what you already have.",
-  },
-  {
-    n: "04",
-    name: "EVOLVE",
-    body: "Weekly trend reports map runway and street to your closet. Wear new ideas without buying them.",
-  },
 ];
 
 export function HowItWorks() {
@@ -38,7 +28,7 @@ export function HowItWorks() {
               [PROCESS] · HOW IT WORKS
             </div>
             <h2 className="mt-6 font-display text-huge">
-              FOUR STEPS.<br />
+              TWO STEPS.<br />
               ONE <span className="text-blood">SMARTER</span> CLOSET.
             </h2>
           </div>
@@ -47,7 +37,7 @@ export function HowItWorks() {
           </div>
         </div>
 
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-4 gap-px bg-cream/15">
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-px bg-cream/15">
           {steps.map((s) => (
             <div
               key={s.n}
