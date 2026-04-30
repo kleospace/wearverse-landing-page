@@ -1,50 +1,65 @@
 # WEARV3RSE — Landing Page
 
-> *The AI that knows what you already own.*
+> *Your wardrobe. Digitalised. Styled by AI.*
 
-WEARV3RSE is an AI-powered wardrobe operating system designed to fight overconsumption in fashion. Instead of buying more, users are helped to wear what they already own — better, smarter, and more intentionally.
+WEARV3RSE verwandelt deinen physischen Kleiderschrank in einen smarten digitalen Twin — angetrieben von zwei KI-Agenten. Es hilft dir, schnellere Entscheidungen zu treffen, Zeit zu sparen, und das was du schon besitzt wirklich zu tragen. Nebenbei: bewussterer Konsum, weniger Impulskäufe, besser für die Umwelt.
 
-This repository contains the **public landing page** for the WEARV3RSE product, built to communicate the concept, introduce the AI agent architecture, and collect early waitlist sign-ups.
+This repository contains the **public landing page**, deployed at Vercel. The app itself lives in a separate repository: [`wearverse-app`](https://github.com/kleospace/wearverse-app).
 
 ---
 
 ## The Problem
 
-The average consumer buys 60 new pieces of clothing per year but only actively wears around 20% of their wardrobe. Online return rates exceed 50%. Wardrobes have become graveyards of impulse purchases.
+The average consumer buys 60 new pieces of clothing per year but actively wears only 20% of their wardrobe. Clothes pile up unworn. Decisions are made every morning under time pressure. Duplicates get bought. Nothing gets sorted out.
 
-WEARV3RSE addresses this by turning your existing closet into an intelligent, queryable system — not by selling you more.
+WEARV3RSE fixes this — not by selling you more, but by making what you already own work harder for you.
 
 ---
 
 ## The Solution: Two-Agent Architecture
 
-The product is built around two specialised AI agents that work in sequence:
+Two specialised AI agents work in sequence to power the experience.
 
 ### Agent 01 — The Cataloguer *(Perception)*
-Responsible for processing visual input from the user's wardrobe. The user photographs each garment once; the Cataloguer identifies category, material composition, dominant colour, silhouette, and styling family in under a second. It builds and maintains the permanent mental model of the entire wardrobe.
+
+You photograph a garment with your phone. The Cataloguer analyses it via Claude Vision API and extracts structured data automatically: category, colour, material, season, and style. Every item is saved to your personal digital wardrobe in Airtable.
+
+Over time the Cataloguer also surfaces what you haven't worn in a while — so you can actually decide what to keep and what to let go.
 
 **Capabilities:**
-- Computer vision model for garment recognition
-- Auto-tagging (< 0.8s per item)
-- Material and texture recognition
-- Colour extraction and palette mapping
+- Computer vision for garment recognition (Claude Vision API)
+- Auto-tagging: category · colour · material · season · style
+- Detects underused items to support conscious sorting
 
 ### Agent 02 — The Stylist *(Reasoning + Action)*
-Takes the structured wardrobe data from the Cataloguer and reasons across it to produce daily outfit recommendations. It weighs weather conditions, the user's calendar, and a learned personal taste model to generate three outfit decisions every morning.
+
+The Stylist takes your digital wardrobe and reasons across it using two sources:
+
+1. **Your wardrobe** — everything the Cataloguer has catalogued
+2. **Today's weather** — via Open-Meteo API (real-time, location-based)
+
+Output: three concrete outfit suggestions every day, composed entirely from what you already own, matched to the weather, and explained with a short rationale.
 
 **Capabilities:**
-- Cross-wardrobe pattern matching
-- Weather-aware outfit selection
-- Calendar context integration
-- Daily triptych output (always exactly three looks)
+- Claude API with Tool Use (structured reasoning)
+- Weather-aware outfit selection (Open-Meteo)
+- Always three looks — never more, never less
+- Rationale per outfit (why this combination works today)
 
-**System handoff:** `Cataloguer (Perception) → Stylist (Reasoning + Action)`
+**System handoff:** `Cataloguer (Perception) → Airtable → Stylist (Reasoning + Action)`
 
 ---
 
-## Landing Page
+## Repositories
 
-The landing page communicates the product vision and collects early interest from Berlin-based users. It is structured as follows:
+| Repo | Purpose | Stack |
+|---|---|---|
+| `wearverse-landing-page` | This repo — public marketing page | Vite · React · Tailwind · Vercel |
+| `wearverse-app` | The actual product (MVP) | Vite · React · FastAPI · Airtable · Railway |
+
+---
+
+## Landing Page Structure
 
 | Section | Purpose |
 |---|---|
@@ -56,42 +71,45 @@ The landing page communicates the product vision and collects early interest fro
 
 ---
 
-## Tech Stack
+## Landing Page — Local Setup
 
-| Layer | Technology |
-|---|---|
-| Framework | [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) |
-| Build tool | [Vite 7](https://vitejs.dev/) |
-| Styling | [Tailwind CSS v4](https://tailwindcss.com/) |
-| UI Primitives | [Radix UI](https://www.radix-ui.com/) |
-| Deployment | [Vercel](https://vercel.com/) |
+```bash
+npm install
+npm run dev       # http://localhost:5173
+npm run build     # production build
+npm run preview   # preview production build
+```
 
 ---
 
-## Running Locally
+## MVP Tech Stack
 
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-```
-
-The dev server runs at `http://localhost:5173`.
+| Layer | Technology |
+|---|---|
+| Frontend | Vite + React + TypeScript + Tailwind CSS v4 |
+| Backend | Python + FastAPI |
+| Agent 01 (Vision) | Claude Vision API (claude-sonnet-4-5) |
+| Agent 02 (Stylist) | Claude API with Tool Use |
+| Database | Airtable |
+| Weather | Open-Meteo API |
+| Deployment | Vercel (frontend) · Railway (backend) |
 
 ---
 
 ## Project Context
 
-WEARV3RSE is a student project exploring the intersection of **AI agent systems** and **sustainable consumer behaviour**. The landing page serves as a product prototype to validate demand and communicate the architecture before technical implementation begins.
+WEARV3RSE is a student project at CODE University Berlin, exploring the intersection of **agentic AI systems** and **sustainable consumer behaviour**.
 
-**Stage:** Concept + Landing Page  
+**Course relevance:**
+
+| Course | Where it appears |
+|---|---|
+| Computer Vision | Agent 01: garment recognition, image classification |
+| Generative AI / LLMs | Agent 02: outfit reasoning, structured output |
+| Agentic AI | Two-agent pipeline with Tool Use |
+| NLP | Prompt engineering, structured extraction |
+| MLOps / Agentic Ops | API versioning, logging, agent observability |
+
+**Stage:** MVP in development  
 **Location:** Berlin, 2026  
-**Focus:** Anti-overconsumption · AI wardrobe operating system · Two-agent pipeline
+**Focus:** Digital wardrobe twin · Two-agent AI pipeline · Conscious consumption
